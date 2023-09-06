@@ -52,7 +52,22 @@ export class TodoListComponent {
     this.editableId = null;
     this.updateTask(task, title);
   }
+  searchTerm: string = ''; 
+  filteredTasks: any[] = this.tasks;
+  noResults: boolean = false;
+
+  searchTask() {
+    if (this.searchTerm.trim() === '') {
+      // Si la búsqueda está vacía, mostrar todas las tareas
+      this.filteredTasks = this.tasks;
+      this.noResults = false; // Reiniciar la variable noResults
+    } else {
+      // Filtrar las tareas por el término de búsqueda
+      this.filteredTasks = this.tasks.filter(task =>
+        task.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+      // Verificar si no se encontraron resultados
+      this.noResults = this.filteredTasks.length === 0;
+    }
+  }
 }
-
-
-
